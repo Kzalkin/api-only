@@ -14,6 +14,12 @@ class BooksController < ApplicationController
     end
   end
 
+  def show
+    @book = Book.find(params[:id])
+
+    render json: {status: 'SUCCESS', message: 'Book is loaded', data: @book}, status: :ok
+  end
+
   def update
     @book = Book.find(params[:id])
 
