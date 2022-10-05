@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+
+  before_action :find_book, only: %i[show update delete destroy]
+
   def index
     @books = Book.order('created_at DESC')
     render json: {status: 'SUCCESS', message: 'Loaded books', data: @books}, status: :ok
@@ -15,14 +18,10 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.find(params[:id])
-
     render json: {status: 'SUCCESS', message: 'Book is loaded', data: @book}, status: :ok
   end
 
   def update
-    @book = Book.find(params[:id])
-
     if @book.update(book_params)
       render json: {status: 'SUCCESS', message: 'Book is updated', data: @book}, status: :ok
     else
@@ -31,9 +30,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    @book = Book.find(params[:id])
     @book.destroy
-
     render json: {status: 'SUCCESS', message: 'Book is deleted.', data: @book}, status: :ok
   end
 
@@ -41,5 +38,9 @@ class BooksController < ApplicationController
 
   def book_params
     params.permit(:title, :author)
+  end
+
+  def find_book
+    @book = Book.find(params[:id])
   end
 end
