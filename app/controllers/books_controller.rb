@@ -23,7 +23,7 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
 
-    if @book.update_attributes(book_params)
+    if @book.update(book_params)
       render json: {status: 'SUCCESS', message: 'Book is updated', data: @book}, status: :ok
     else
       render json: {status: 'ERROR', message: 'Book failed to update', data: @book.errors}, status: :unprocessable_entity
