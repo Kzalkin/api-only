@@ -14,6 +14,16 @@ class BooksController < ApplicationController
     end
   end
 
+  def update
+    @book = Book.find(params[:id])
+
+    if @book.update_attributes(book_params)
+      render json: {status: 'SUCCESS', message: 'Book is updated', data: @book}, status: :ok
+    else
+      render json: {status: 'ERROR', message: 'Book failed to update', data: @book.errors}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def book_params
