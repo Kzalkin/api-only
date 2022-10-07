@@ -31,7 +31,7 @@ class BooksController < ApplicationController
 
   def destroy
     @book.destroy
-    render json: {status: 'SUCCESS', message: 'Book is deleted.', data: @book}, status: :ok
+    head :no_content
   end
 
   private
