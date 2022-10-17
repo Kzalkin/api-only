@@ -1,4 +1,4 @@
 class SerializableBook < JSONAPI::Serializable::Resource
   type 'books'
-  attribute :title, :author
+  attributes :title, :author
 end
