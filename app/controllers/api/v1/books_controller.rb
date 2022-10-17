@@ -5,28 +5,28 @@ module Api
 
       def index
         @books = Book.order("created_at DESC")
-        render json: { status: "SUCCESS", message: "Loaded books", data: @books }, status: :ok
+        render jsonapi: @books
       end
 
       def create
         @book = Book.new(book_params)
 
         if @book.save
-          render json: { status: "SUCCESS", message: "Book is saved", data: @book }, status: :created
+          render jsonapi: @book
         else
-          render json: { status: "ERROR", message: "Post is not saved", data: @book.errors }, status: :unprocessable_entity
+          render jsonapi_errors: @book.errors
         end
       end
 
       def show
-        render json: { status: "SUCCESS", message: "Book is loaded", data: @book }, status: :ok
+        render jsonapi: @book
       end
 
       def update
         if @book.update(book_params)
-          render json: { status: "SUCCESS", message: "Book is updated", data: @book }, status: :ok
+          render jsonapi: @book
         else
-          render json: { status: "ERROR", message: "Book failed to update", data: @book.errors }, status: :unprocessable_entity
+          render jsonapi_errors: @book.errors
         end
       end
 
