@@ -47,3 +47,7 @@ group :development do
 end
 
 gem 'jsonapi-rails'
+
+gem 'pagy'
+
+gem 'api-pagination'

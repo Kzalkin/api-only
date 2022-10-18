@@ -4,7 +4,7 @@ module Api
       before_action :find_book, only: %i[show update delete destroy]
 
       def index
-        @books = Book.order("created_at DESC")
+        @books = paginate Book.order("created_at DESC"), per_page: 10
         render jsonapi: @books
       end
 
